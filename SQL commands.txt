@@ -1,0 +1,156 @@
+SQL COMMANDS 
+5 types:
+1. DDL(Data Defination Language)----->CREATE, ALTER, DROP, TRUNCATE, RENAME
+2. DML(Data Manipulation Language)----->INSERT, DELETE, UPDATE
+3. DRL(Data Retrival Language)----->SELECT
+4. TCL(Transaction Control Language)----->COMMIT, ROLLBACK, SAVEPOINT
+5. DCL(Data Control Language)----->GRANT, REVOKE
+----------------------------------------------------------------------------------------------
+1. DDL
+
+CREATE:
+-->create table tablename(colname datatype)
+To view the table structure: DESC table_name
+To view along with records: SELECT * from table_name (or) SELECT col_name from table_name
+
+ALTER:
+--->ALTER table table_name ADD/MODIFY/DROP column col_name datatype
+--->ALTER table table_name RENAME col_name to col_name1
+
+DROP:
+--->DROP table table_name
+
+TRUNCATE:
+--->TRUNCATE table table_name
+Removes only records in the table
+we cannot rollback (get back) the deleted records
+
+RENAME:
+--->RENAME table table_name
+----------------------------------------------------------------------------------------------------------
+2. DML
+
+INSERT:
+-->INSERT into table_name(col_name1,col_name2,----) values (val1,val2,----)
+EX: INSERT into student(s_id,sname,sweg) values(1, chandu, 23)---->Hardcode
+INSERT into student values(&s_id, '&sname', &sweg)
+
+DELETE:
+-->DELETE from table_name where col_name=value
+EX: DELETE from student where s_id=___
+NOTE: If WHERE is omitted the all records of table data is deleted(TRUNCATE)
+
+UPDATE:
+--> UPDATE table_name set col_name='  ' where [condition]
+EX: UPDATE student sname='Harshith' where s_id=26
+----------------------------------------------------------------------------------------------------------
+3. DRL
+
+SELECT:
+-->SELECT * from table_name (or) SELECT col_name from table_name
+-->SELECT * from DUAL
+-->SELECT sname from student where s_id=' '
+
+NOTE: SELECT*from table_name where col_name='  '
+
+****NOTE: ALTER is to change structure and UPDATE is to change data(records)
+-------------------------------------------------------------------------------------------------------------
+4. TCL
+
+COMMIT:
+-->COMMIT table_name
+saves data permanently
+
+SAVEPOINT:
+-->SAVEPOINT mydatabackup(specify name)
+
+ROLLBACK:
+-->ROLLBACK to mydatabackup(specified name)
+--------------------------------------------------------------------------------------------------------------
+5.DCL
+REVOKE:
+-->REVOKE privilege_name ON obj_name from user_name|PUBLIC|role_name
+Ex: REVOKE SELECT ON student from mary
+--> used to remove access on database objects from other users
+
+GRANT:
+-->GRANT system privilege to username|rolename
+-->GRANT CREATE SESSION TO username(mary)
+WHERE OPERATORS 
+1. ;,  != or <>, >, >=, <, <=
+2. Logical Operators: AND, OR
+EX: SELECT sname from student where s_id=2 AND sweg=5;
+3. Arithmetic(+,-,*,%) can be applied to the SELECT clause
+Ex: SELECT 4*5%2 from DUAL
+
+SOME SAMPLE QUERIES:
+1. Add s_id and class for each record
+SELECT s_id+class from student(table_name)
+2. concatenate sname and class
+SELECT sname || '-' || class
+3. Find all the names of all the students who have been given reg_date
+SELECT sname fron student where reg_date is not null
+
+SYSTEM PRIVILEGE ARE:
+CREATE TABLE/TRIGGER/PROCEDURE/VIEW/INDEX
+ALTER  TABLE/TRIGGER/PROCEDURE
+DROP TABLE/TRIGGER/PROCEDURE/VIEW/INDEX
+SELECT/INSERT/UPDATE/DELETE [ANY] TABLE
+CREATE SESSION
+EXECUTE [ANY] PROCEDURE
+
+
+OBJECT PRIVILEGE ARE:
+1. INSERT, SELECT, UPDATE, DELETE for tables and views
+2.ALTER, INDEX, REFERENCES for tables, col_name
+3. EXECUTE for procedure and functions
+
+CONSTAINTS
+--> used to enforce integrity
+1. Integrity Constraints:
+--> Entity Integrity: PRIMARY KEY, UNIQUE
+-->Referential Integrity: FOREIGN KEY
+-->User_defined Integrity: CHECK, NOT NULL
+
+-->COLUMN LEVEL CONSTAINTS
+
+SYNTAX: CREATE TABLE table_name(col_name datatype(default expr), col_name [CONSTRAINT cons_name]
+constaint_type);
+--> TABLE LEVEL CONSTAINTS
+
+SYNTAX: CREATE TABLE table_name(col_name datatype [default expression), col_name
+ [CONSTAINT cons_name] Constaint_type(col_name));
+
+1. PRIMARY KEY:
+At column level:
+CREATE TABLE ORDERS(order_number NUMBER(4) PRIMARY KEY, cust_number varchar2(10), order_date DATE,
+bill_amt NUMBER(5));
+
+At table level:
+CREATE TABLE ORDERS( order_number NUMBER(4), cust_number varchar2(10), order_date DATE, 
+bill_amt NUMBER(6), PRIMARY KEY(order_name));
+
+ALTER Statment:
+ALTER TABLE table_name ADD [constariant cons_name]  Constraint_type(col_name);
+ALTER TABLE table_name ADD primary key (col_name);
+
+2. COMPOSITE KEY:
+
+At column level:
+CREATE TABLE Items(order_number NUMBER(5), pid NUMBER(4), quantity NUMBER(5), unit_cost NUMBER(7,4), 
+PRIMARY KEY(order_number, pid));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

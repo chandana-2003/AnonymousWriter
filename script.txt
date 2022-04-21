@@ -1,0 +1,17 @@
+begin
+   execute immediate 'drop table training';
+exception
+   when others then null;
+end;
+/
+
+create table training(
+training_name varchar2(255) not null,
+start_date varchar2(255) not null,
+end_date varchar2(255) not null,
+trainer_name varchar2(255) not null,
+venue varchar2(255) not null
+);
+
+insert into training(training_name,start_date,end_date,trainer_name,venue)values('Java','25-10-2020','31-12-2020','Kelly','Training hall1');
+insert into training(training_name,start_date,end_date,trainer_name,venue)values('C','28-10-2020','10-12-2020','John','Training hall2');
